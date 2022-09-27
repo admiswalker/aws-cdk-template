@@ -2,20 +2,28 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { AwsCdkTemplateStack } from '../lib/aws-cdk-template-stack';
+import { VpcStack } from '../lib/vpc-stack';
+import { SsmStack } from '../lib/ssm-stack';
+import { Ec2Stack } from '../lib/ec2-stack';
+
+
+const prj_name = 'AwsCdkTemplate';
 
 const app = new cdk.App();
-new AwsCdkTemplateStack(app, 'AwsCdkTemplateStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+new AwsCdkTemplateStack(app, 'AwsCdkTemplateStack', {});
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+const vpc_stack = new VpcStack(app, prj_name+'-VpcStack', {
+  prj_name: prj_name
+});
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+const ssm_stack = new SsmStack(app, prj_name+'-SsmStack', {
+  prj_name: prj_name,
+  vpc: vpc_stack.vpc,
+});
+
+const ec2 = new Ec2Stack(app, prj_name+'-Ec2Stack', {
+  prj_name: prj_name,
+  vpc: vpc_stack.vpc,
+  ssm_iam_role: ssm_stack.iam_role,
 });
