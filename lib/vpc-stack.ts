@@ -1,6 +1,7 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { InstanceType, NatInstanceImage, NatProvider } from 'aws-cdk-lib/aws-ec2';
 
 
 interface VpcStackProps extends StackProps {
@@ -15,6 +16,10 @@ export class VpcStack extends Stack {
     this.vpc = new ec2.Vpc(this, props.prj_name+'-'+this.constructor.name+'-vpc_for_ec2_and_ssm', {
       cidr: '10.0.0.0/16',
       natGateways: 1,
+//      natGatewayProvider: ec2.NatProvider.instance({
+//        instanceType: new InstanceType('t3.nano'),
+//        machineImage: new NatInstanceImage(),
+//      }),
       subnetConfiguration: [
         {
           name: 'Public',
@@ -23,7 +28,7 @@ export class VpcStack extends Stack {
         },
         {
           name: 'Private',
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
           cidrMask: 27,
         },
       ],
