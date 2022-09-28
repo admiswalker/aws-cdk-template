@@ -12,6 +12,15 @@ ssh -i ~/.ssh/ec2/id_ed25519 admis@$EC2_INSTANCE_ID
 
 ## よく使うコマンド
 
+### テスト
+```
+npx npm run test
+```
+```
+npx npm run test -- -u
+```
+
+### デプロイ
 ```bash
 npx cdk synth
 ```

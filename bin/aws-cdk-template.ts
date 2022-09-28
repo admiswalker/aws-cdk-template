@@ -7,13 +7,13 @@ import { SsmStack } from '../lib/ssm-stack';
 import { Ec2Stack } from '../lib/ec2-stack';
 
 
+const app = new cdk.App();
+
 const prj_name = 'AwsCdkTemplate';
 const env = {
   account: process.env.CDK_DEPLOY_ACCOUNT || process.env.CDK_DEFAULT_ACCOUNT,
   region: process.env.CDK_DEPLOY_REGION || process.env.CDK_DEFAULT_REGION
 }
-
-const app = new cdk.App();
 
 new AwsCdkTemplateStack(app, 'AwsCdkTemplateStack', {});
 
@@ -28,7 +28,7 @@ const ssm_stack = new SsmStack(app, prj_name+'-SsmStack', {
   vpc: vpc_stack.vpc,
 });
 
-const ec2 = new Ec2Stack(app, prj_name+'-Ec2Stack', {
+const ec2_stack = new Ec2Stack(app, prj_name+'-Ec2Stack', {
   prj_name: prj_name,
   env: env,
   vpc: vpc_stack.vpc,
