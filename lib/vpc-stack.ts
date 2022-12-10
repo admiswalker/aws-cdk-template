@@ -17,7 +17,7 @@ export class VpcStack extends Stack {
       cidr: '10.0.0.0/16',
       natGateways: 1,
       natGatewayProvider: ec2.NatProvider.instance({
-        instanceType: new InstanceType('t3.nano'),
+        instanceType: new InstanceType('t3a.nano'),
         machineImage: new NatInstanceImage(),
       }),
       subnetConfiguration: [

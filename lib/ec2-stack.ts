@@ -21,7 +21,7 @@ export class Ec2Stack extends Stack {
     multipartUserData.addPart(ec2.MultipartBody.fromUserData(cloud_config, 'text/cloud-config; charset="utf8"'));
     
     const ec2_instance = new ec2.Instance(this, props.prj_name+'-'+this.constructor.name+'-general_purpose_ec2', {
-      instanceType: new ec2.InstanceType('t3.nano'), // 1 Core, 1 GB
+      instanceType: new ec2.InstanceType('t3a.nano'), // 2 vCPU, 0.5 GB
 //    machineImage: ec2.MachineImage.genericLinux({'us-west-2': 'ami-XXXXXXXXXXXXXXXXX'}),
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX,
