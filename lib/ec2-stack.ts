@@ -8,6 +8,7 @@ import * as fs from 'fs';
 interface Ec2StackProps extends StackProps {
   prj_name: string;
   vpc: ec2.Vpc;
+  ec2_sg: ec2.SecurityGroup;
   ssm_iam_role: iam.Role;
 }
 export class Ec2Stack extends Stack {
@@ -39,7 +40,9 @@ export class Ec2Stack extends Stack {
       }),
       role: props.ssm_iam_role,
       userData: multipartUserData,
+      securityGroup: props.ec2_sg,
     });
 
+    //---
   }
 }

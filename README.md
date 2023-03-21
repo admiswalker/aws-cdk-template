@@ -1,7 +1,11 @@
 # aws-cdk-template
 
+## 構成図
 
-## SSH
+![](architecture.drawio.png)
+
+## SSH アクセス
+
 ```bash
 EC2_INSTANCE_ID=$(aws ec2 describe-instances \
     --filters "Name=tag:Name,Values=AwsCdkTemplate-Ec2Stack/AwsCdkTemplate-Ec2Stack-general_purpose_ec2" \

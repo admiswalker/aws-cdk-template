@@ -32,5 +32,6 @@ const ec2_stack = new Ec2Stack(app, prj_name+'-Ec2Stack', {
   prj_name: prj_name,
   env: env,
   vpc: vpc_stack.vpc,
+  ec2_sg: vpc_stack.ec2_sg,
   ssm_iam_role: ssm_stack.iam_role,
 });
